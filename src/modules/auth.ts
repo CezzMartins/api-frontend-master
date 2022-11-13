@@ -1,25 +1,12 @@
-import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
-import { NextFunction, Request, Response } from "express";
+import bcrypt from "bcrypt"
 
 dotenv.config();
-export const createJwt = (user: any) => {
-    const token = jwt.sign({ id: user.id, username: user.username }, process.env.JWT_SECRET as string);
-    return token;
-};
 
-export const protect = (request: any, response: Response, next: NextFunction) => {
-    const bearer = request.headers.authorization;
-    if(!bearer) return response.status(401).json({ message: "Not authorized."});
-    
-    const [, token] = bearer.split(" ");
-    if(!token) return response.status(401).json({ message: "Invalid Token" });
+export const comparePasswords = (password: string, hash: string ) => {
+    return bcrypt.compare(password, hash);
+}
 
-    try {
-        const user = jwt.verify(token, process.env.JWT_SECRET as string);
-        request.user = user;
-        next();
-    } catch(err){
-        response.status(401).json({ message: "Invalid Token."});
-    }
+export const hashPassword = (password: string) => {
+    return bcrypt.hash(password, 5);
 }
