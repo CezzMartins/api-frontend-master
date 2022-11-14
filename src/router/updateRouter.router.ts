@@ -1,20 +1,22 @@
 import { Request, Response, Router } from "express";
+import { body, check, oneOf } from "express-validator";
 
 const UpdateRouter = Router();
 
-UpdateRouter.get("/", (request: Request, response: Response) => {
+UpdateRouter.put("/:id",
+                    body('title').optional(), 
+                    body('body').optional(), 
+                    body('version').optional(),
+                    check('status').isIn(['IN_PROGESS', 'SHIPPED', 'DEPRECATED']),
+                    (request: Request, response: Response) => {
+                        return response.json({message: 'foi'})
 
 });
 
-UpdateRouter.get("/:id", (request: Request, response: Response) => {
-
-});
-
-UpdateRouter.put("/:id", (request: Request, response: Response) => {
-
-});
-
-UpdateRouter.post("/", (request: Request, response: Response) => {
+UpdateRouter.post("/",
+                    body('title').exists(), 
+                    body('body').exists().isString(), 
+                    (request: Request, response: Response) => {
 
 });
 

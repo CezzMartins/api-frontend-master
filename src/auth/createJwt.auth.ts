@@ -1,6 +1,3 @@
-import { Request, Response } from "express";
-import prisma from "../db";
-import { comparePasswords, hashPassword } from "../modules/auth";
 import jwt from "jsonwebtoken";
 
 export const createJwt = (user: any) => {

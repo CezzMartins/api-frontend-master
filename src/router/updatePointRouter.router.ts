@@ -1,21 +1,21 @@
 
 import { Request, Response, Router } from "express";
+import { body } from "express-validator";
 
 const UpdatePointRouter = Router();
 
-UpdatePointRouter.get("/", (request: Request, response: Response) => {
+UpdatePointRouter.put("/:id", 
+                            body('name').optional().isString(), 
+                            body('description').optional().isString(),
+                            body('updateId').exists().isString(),
+                            (request: Request, response: Response) => {
 
 });
 
-UpdatePointRouter.get("/:id", (request: Request, response: Response) => {
-
-});
-
-UpdatePointRouter.put("/:id", (request: Request, response: Response) => {
-
-});
-
-UpdatePointRouter.post("/", (request: Request, response: Response) => {
+UpdatePointRouter.post("/", 
+                        body('name').optional().isString(), 
+                        body('description').optional().isString(),
+                        (request: Request, response: Response) => {
 
 });
 

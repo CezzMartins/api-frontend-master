@@ -1,4 +1,6 @@
 import { Request, Response, Router } from "express";
+import { body } from "express-validator";
+import { handleValidValues } from "../middleware/protect.middleware";
 
 const  ProductRouter = Router();
 
@@ -10,11 +12,11 @@ ProductRouter.get("/:id", (request: Request, response: Response) => {
 
 });
 
-ProductRouter.put("/:id", (request: Request, response: Response) => {
-
+ProductRouter.put("/:id", body("name").isString(), handleValidValues, (request: Request, response: Response) => {
+    
 });
 
-ProductRouter.post("/", (request: Request, response: Response) => {
+ProductRouter.post("/", body("name").isString(), handleValidValues, (request: Request, response: Response) => {
 
 });
 

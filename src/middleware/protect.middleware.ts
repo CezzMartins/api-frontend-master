@@ -1,6 +1,7 @@
-import { NextFunction, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
+import { validationResult } from "express-validator";
 
 
 dotenv.config();
@@ -19,4 +20,10 @@ export const protect = (request: any, response: Response, next: NextFunction) =>
     } catch(err){
         response.status(401).json({ message: "Invalid Token."});
     }
+}
+
+export const handleValidValues = (request: Request, response: Response, next: NextFunction) => {
+    const errors = validationResult(request);
+    if (!errors.isEmpty()) return response.status(400).json({ errors: errors.array() });
+    else return next();
 }
